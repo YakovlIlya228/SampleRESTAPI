@@ -1,34 +1,37 @@
 package com.example.samplerestapitest
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class SampleListAdapter(): RecyclerView.Adapter<SampleListAdapter.SampleViewHolder>() {
+class SampleListAdapter(context: Context): RecyclerView.Adapter<SampleListAdapter.SampleViewHolder>() {
 
-    var itemList = emptyList<Post>()
+    private var itemList = emptyList<Post>()
+    private val inflater: LayoutInflater = LayoutInflater.from(context)
 
-    class SampleViewHolder(inflater: LayoutInflater, viewGroup: ViewGroup): RecyclerView.ViewHolder(inflater.inflate(R.layout.sample_item_layout, viewGroup,false)){
-        var userId: TextView? = null
-        var id: TextView? = null
-        var title: TextView? = null
-        var body: TextView? = null
+    class SampleViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+        var userId: TextView?
+        var id: TextView?
+        var title: TextView?
+        var body: TextView?
         init {
-            userId = viewGroup.findViewById(R.id.userId)
-            id = viewGroup.findViewById(R.id.ID)
-            title = viewGroup.findViewById(R.id.title)
-            body = viewGroup.findViewById(R.id.body)
+           userId = itemView.findViewById(R.id.userId)
+           id = itemView.findViewById(R.id.ID)
+           title = itemView.findViewById(R.id.title)
+           body = itemView.findViewById(R.id.body)
+       }
 
-        }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SampleViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        return SampleViewHolder(inflater,parent)
+        val itemView = inflater.inflate(R.layout.sample_item_layout,parent,false)
+        return SampleViewHolder(itemView)
     }
-    public fun setPosts(itemList: ArrayList<Post>){
+    fun setPosts(itemList: ArrayList<Post>){
         this.itemList = itemList
-        notifyDataSetChanged()
+        this.notifyDataSetChanged()
     }
     override fun getItemCount(): Int {
         return itemList.size

@@ -7,7 +7,6 @@
     tools:context=".MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        tools:listitem="@layout/sample_item_layout"
         android:id="@+id/sampleRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
